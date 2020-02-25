@@ -1,0 +1,15 @@
+header nav {
+  background-color: gainsboro;
+}
+
+main nav {
+  width: 60%;
+  min-height: 20vh;
+  background-color: navyblue;
+}
+
+links img {
+  max-height: 45px;
+}
+
+/*# sourceMappingURL=rule.css.map */
