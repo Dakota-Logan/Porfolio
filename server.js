@@ -1,12 +1,17 @@
+require("dotenv").config(); //Configure the env file for use within.
 const
 fs = require ("fs"),
-http = require ("http");
-require("dotenv").config();
+fastify = require("fastify")(),
+path = require("path");
 
-http.createServer((req, res) => {
-	fs.readFile(__dirname + "/index.html", (err, data) => {
-		res.writeHead(200);
-		res.end(data);
-	});
-}).listen(process.env.PORT);
-console.log(/*"running on port "+*/process.env.PORT);
+fastify.register(require("fastify-static"), {
+	root: path.join(__dirname, "src")
+});
+
+fastify.use("*", (req, res)=>{
+	res.sendFile("index.html")
+});
+
+fastify.listen(process.env.PORT, "0.0.0.0", ()=>{
+	console.log("running on port:" + process.env.PORT)
+});
