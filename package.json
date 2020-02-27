@@ -1,0 +1,7 @@
+{
+  "name": "portfolio",
+  "version": "1.0.0",
+  "dependencies": {
+    "sakura.css": "^1.0.0"
+  }
+}
