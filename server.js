@@ -2,14 +2,14 @@ require ("dotenv").config ({}); //Configure the env file for use within.
 const
 fs = require ("fs"),
 fastify = require ("fastify") (),
-path = require ("path"),
+path = require ("path");
 ss = require("serve-static");
 
-fastify.register (require ("fastify-static"), {
-	root: path.join (__dirname, "src")
-});
+// fastify.register (require ("fastify-static"), {
+// 	root: path.join (__dirname, "src")
+// });
 //Serve client
-fastify.use(ss(path.join(__dirname, "src")));
+fastify.use(ss(path.join(__dirname, "\src")));
 // fastify.register((instance, opts, next)=>{
 //
 // });
