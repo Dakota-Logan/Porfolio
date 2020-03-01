@@ -5,9 +5,13 @@ fastify = require ("fastify") (),
 path = require ("path");
 ss = require("serve-static");
 
+//Setup
 // fastify.register (require ("fastify-static"), {
 // 	root: path.join (__dirname, "src")
 // });
+
+const serve = ss('src', {index: 'index.html'});
+
 //Serve client
 fastify.use(ss(path.join(__dirname, "\src")));
 // fastify.register((instance, opts, next)=>{
