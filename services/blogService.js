@@ -1,3 +1,5 @@
+const db = null;
+
 class blog {
 	get(req, res) {
 		res.send({hello: "World"});
