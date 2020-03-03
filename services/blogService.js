@@ -1,9 +1,5 @@
-// const cfg = require("../config");
-// const db = cfg.db;
-const pgp = require("pg-promise")();
-let cn = process.env.DATABASE_URL.toString();
-console.log(process.env.DATABASE_URL);
-const db = pgp (cn);
+const cfg = require("../config");
+const db = cfg.db;
 
 class blog {
 	async get(req, res) {

@@ -1,8 +1,8 @@
-const pg = require("pg-promise");
+const pgp = require("pg-promise")();
 
 class config {
 	constructor () {
-		this.db = pg ({schema: process.env.DATABASE_URL});
+		this.db = pgp(process.env.DATABASE_URL);
 	}
 }
 
