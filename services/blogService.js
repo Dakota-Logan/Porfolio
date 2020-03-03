@@ -8,14 +8,21 @@ class blog {
 			res.send(data);
 		} catch (e) {
 			console.error(e.message);
-			// fastify.log(e.message);
-			res.send();
+			res.status = 500;
+			res.send({error: e.message});
 		}
 	}
-	async getById(req, res) {
-		db.any('SELECT * from blogs where id = $1', [req.params.id])
-		.then(data=>res.send(data))
-		.catch(e=>console.log(e.message))
+	
+	async getBlog(req, res) {
+		try{
+			let data = await db.any('select * from blogs where id = $1', [req.params.id]);
+			res.view("../templates/blog.ejs", {data: data});
+			res.send();
+		} catch (e) {
+			console.error(e.message);
+			res.status = 500;
+			res.send({error: e.message})
+		}
 	}
 }
 
