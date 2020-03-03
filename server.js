@@ -3,21 +3,15 @@ const
 fs = require ("fs"),
 fastify = require ("fastify") (),
 path = require ("path"),
-pg = require("pg"),
+pg = require("pg-promise"),
 ss = require("serve-static");
 
 //Setup
-// fastify.register (require ("fastify-static"), {
-// 	root: path.join (__dirname, "src")
-// });
-
-const serve = ss('src', {index: 'index.html'});
+//Connect to db
+db = pg ({schema: process.env.DATABASE_URL});
 
 //Serve client
-fastify.use(ss(path.join(__dirname, "\src")));
-// fastify.register((instance, opts, next)=>{
-//
-// });
+fastify.use(ss(path.join(__dirname, "\src"), {index: 'index.html'}));
 //Routes
 fastify.register(require ("./routing"), {prefix: "/api"});
 

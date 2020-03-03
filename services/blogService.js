@@ -1,12 +1,25 @@
-// const db =
-
+// const cfg = require("../config");
+// const db = cfg.db;
+const pgp = require("pg-promise")();
+let cn = process.env.DATABASE_URL.toString();
+console.log(process.env.DATABASE_URL);
+const db = pgp (cn);
 
 class blog {
-	get(req, res) {
-		res.send({hello: "World"});
+	async get(req, res) {
+		try {
+			let data = await db.any('select blogsummaries.blogid, summary.html from blogsummaries, summary where summary.id = blogsummaries.id');
+			res.send(data);
+		} catch (e) {
+			console.error(e.message);
+			// fastify.log(e.message);
+			res.send();
+		}
 	}
-	getById(req, res) {
-		res.send({hello: ("Worlddd"+req.params.id)});
+	async getById(req, res) {
+		db.any('SELECT * from blogs where id = $1', [req.params.id])
+		.then(data=>res.send(data))
+		.catch(e=>console.log(e.message))
 	}
 }
 
