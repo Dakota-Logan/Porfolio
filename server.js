@@ -2,7 +2,8 @@ require ("dotenv").config ({}); //Configure the env file for use within.
 const
 fs = require ("fs"),
 fastify = require ("fastify") (),
-path = require ("path");
+path = require ("path"),
+pg = require("pg"),
 ss = require("serve-static");
 
 //Setup

@@ -1,4 +1,5 @@
-const db = null;
+// const db =
+
 
 class blog {
 	get(req, res) {
