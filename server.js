@@ -10,12 +10,13 @@ ss = require("serve-static");
 //Setup
 //Connect to db
 db = pg ({schema: process.env.DATABASE_URL});
-//Set view/render engine
-fastify.register(require("point-of-view"), {
-	engine: {
-		ejs: require("ejs")
-	}
-});
+// //Set view/render engine
+// fastify.register(require("point-of-view"), {
+// 	engine: {
+// 		ejs: require("ejs")
+// 	},
+// 	templates: path.join(__dirname, '/templates')
+// });
 //Parse any incoming bodies
 // fastify.use(bp.json());
 fastify.addContentTypeParser('application/json', { parseAs: 'string' }, function (req, body, done) {

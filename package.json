@@ -2,15 +2,15 @@
   "name": "portfolio",
   "version": "1.0.0",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
+    "ejs": "^3.0.1",
     "fastify": "^2.12.0",
     "fastify-static": "^2.6.0s",
-    "point-of-view": "^3.7.2",
     "path": "^0.12.7",
-    "serve-static": "^1.14.1",
     "pg-promise": "^10.4.4",
-    "sqlstring": "^2.3.1",
-    "body-parser": "^1.19.0",
-    "ejs": "^3.0.1"
+    "point-of-view": "^3.7.2",
+    "serve-static": "^1.14.1",
+    "sqlstring": "^2.3.1"
   }
 }

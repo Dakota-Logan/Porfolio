@@ -1,5 +1,6 @@
 const cfg = require("../config");
 const db = cfg.db;
+const ejs = cfg.ejs;
 
 class blog {
 	async get(req, res) {
@@ -15,11 +16,15 @@ class blog {
 	
 	async getBlog(req, res) {
 		try{
-			let data = await db.any('select * from blogs where id = $1', [req.params.id]);
-			res.view("../templates/blog.ejs", {data: data});
-			res.send();
+			let data = '<section><div id="heading">Hello!</div><div id="content-primary">Lorem Ipsum</div></section>';
+			/*await db.any('select * from blogs where id = $1', [req.params.id]);*/
+			// res.view("blog.ejs", {data: data});
+			ejs.renderFile('./templates/blog.ejs', {data: data}, (err, fd)=>{
+				console.log (fd);
+				res.send({data:fd});
+			});
 		} catch (e) {
-			console.error(e.message);
+			console.log(e.message);
 			res.status = 500;
 			res.send({error: e.message})
 		}
