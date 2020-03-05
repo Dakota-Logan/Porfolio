@@ -28,8 +28,10 @@ fastify.addContentTypeParser('application/json', { parseAs: 'string' }, function
 		done(err, undefined)
 	}
 });
+
 //Serve client
 fastify.use(ss(path.join(__dirname, "\src"), {index: 'index.html'}));
+
 //Routes
 fastify.register(require ("./routing"), {prefix: "/api"});
 
