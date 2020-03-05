@@ -1,12 +1,7 @@
 //Utility functions for the router (no need to expose them to other files);
 
 function formatLoc () {
-	let temp = window.location.hash.substr(1) || '/';
-	console.log ('temp: ', temp);
-	let noRef = temp.substr(0);
-	let newTemp = noRef.split (/(?=\/)/);
-	console.log ('newTemp: ', newTemp);
-	return newTemp;
+	return (window.location.hash.substr(1) || '/').split (/(?=\/)/);
 }
 
 function formatLocAdr (input) {
@@ -21,7 +16,7 @@ function formatLocAdr (input) {
 
 function formatLocMod (input) {
 	let str = input;
-	console.log ('locmod: ',str);
+	// console.log ('locmod: ',str);
 	if (str[1] !== undefined && str[1] !== '')
 		return str[1];
 	else
@@ -44,11 +39,11 @@ class Router {
 		//Set the location address; make sure the locAdr is not null
 		this.locAdr = formatLocAdr(this.loc);
 		
-		console.log('b4 locmod: ', this.loc);
+		// console.log('b4 locmod: ', this.loc);
 		//Make sure the modifier exists; else set the mod to empty string.
 		this.locMod = formatLocMod(this.loc);
 		
-		console.log (this.loc, this.locAdr, this.locMod);
+		// console.log (this.loc, this.locAdr, this.locMod);
 		
 		//Invoke this routes callback to make sure the correct data is loaded.
 		this.routes[this.loc[0]].callback ();
@@ -63,6 +58,7 @@ class Router {
 			path: "/",
 			name: "root",
 			callback: () => {
+				console.log ("No need");
 			}
 			
 		},
@@ -128,7 +124,10 @@ class Router {
 	}
 	
 	callRoute () {
-	
+		if(this.locMod!=='')
+			return this.fBlog();
+		else
+			this.routes[this.locAdr].callback();
 	}
 }
 
