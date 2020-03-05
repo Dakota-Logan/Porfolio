@@ -1,16 +1,31 @@
-//Utiliy functions for the router (no need to expose them to other files);
+//Utility functions for the router (no need to expose them to other files);
 
 function formatLoc () {
-	return (window.location.hash.split ('#')[1] || '/').split (/(?=\/)/);
+	let temp = window.location.hash.substr(1) || '/';
+	console.log ('temp: ', temp);
+	let noRef = temp.substr(0);
+	let newTemp = noRef.split (/(?=\/)/);
+	console.log ('newTemp: ', newTemp);
+	return newTemp;
 }
-function formatLocAdr (str) {
-	if (this.loc[0] !== undefined)
-		this.locAdr = this.loc[0].replace ('/', '');
-	else
-		this.locAdr = '';
-}
-function formatLocMod (str) {
 
+function formatLocAdr (input) {
+	let str = input;
+	if(str === undefined)
+		return '';
+	if (str[0] === undefined)
+		return '';
+	else
+		return str[0];
+}
+
+function formatLocMod (input) {
+	let str = input;
+	console.log ('locmod: ',str);
+	if (str[1] !== undefined && str[1] !== '')
+		return str[1];
+	else
+		return '';
 }
 
 //Class declaration and definition.
@@ -27,14 +42,13 @@ class Router {
 		this.loc = formatLoc();
 		
 		//Set the location address; make sure the locAdr is not null
-		this.locAdr = formatLocAdr(loc)
+		this.locAdr = formatLocAdr(this.loc);
 		
+		console.log('b4 locmod: ', this.loc);
 		//Make sure the modifier exists; else set the mod to empty string.
-		if (this.loc[1] !== undefined && this.loc[1] !== '')
-			this.locMod = this.loc[1].replace ('/', '');
-		else
-			this.locMod = '';
-		console.log (this.loc);
+		this.locMod = formatLocMod(this.loc);
+		
+		console.log (this.loc, this.locAdr, this.locMod);
 		
 		//Invoke this routes callback to make sure the correct data is loaded.
 		this.routes[this.loc[0]].callback ();
@@ -73,7 +87,9 @@ class Router {
 	 * Gets the current values from the url, parses them and sets them to the appropriate variables.
 	 */
 	getValues () {
-		//str.split(/(?=\/)/)
+		this.loc = formatLoc();
+		this.locAdr = formatLocAdr(this.loc);
+		this.locMod = formatLocMod(this.loc);
 	}
 	
 	fPortfolio () {
@@ -81,33 +97,38 @@ class Router {
 		fetch ('/api/portfolio')
 		.then (res => res.json ())
 		.then (f => {
-			this.header = f.header;
-			this.content = f.content;
-			window.history.pushState ({}, 'portfolio', 'portfolio');
+			console.log (f);
+			// this.header = f.header;
+			// this.content = f.content;
+			window.history.pushState ({}, 'portfolio', '#/portfolio');
 		});
 	}
 	
 	fBlogs () {
 		//TODO Set the active button style for the BLOGS btn.
-		fetch ("/api/blog" + num || null)
+		fetch ("/api/blogs")
 		.then (res => res.json ())
 		.then (f => {
-			this.header = f.header;
-			this.content = f.content;
-			window.history.pushState ({}, 'blogs', '/blogs')
+			console.log (f);
+			// this.header = f.header;
+			// this.content = f.content;
+			window.history.pushState ({}, 'blogs', '#/blogs')
 		})
 	}
 	
 	fBlog () {
 		//TODO Remove any active styles from the nav buttons.
-		let num = 1; //TODO Get the id from the route (/blogs/->:id<-).
 		fetch ("/api/blog" + num || null)
 		.then (res => res.json ())
 		.then (f => {
 			this.header = f.header;
 			this.content = f.content;
-			window.history.pushState ({}, 'blog' + num, '/blogs/' + num)
+			window.history.pushState ({}, 'blog' + num, '#/blogs/' + this.locMod)
 		})
+	}
+	
+	callRoute () {
+	
 	}
 }
 
