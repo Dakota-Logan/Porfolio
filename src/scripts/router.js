@@ -30,6 +30,8 @@ class Router {
 		this.loc = '';
 		this.locAdr = '';
 		this.locMod = '';
+		this.header = document.getElementsByTagName ("header");
+		this.content = document.getElementsByTagName ("main");
 	}
 	
 	init () {
@@ -38,19 +40,12 @@ class Router {
 		
 		//Set the location address; make sure the locAdr is not null
 		this.locAdr = formatLocAdr(this.loc);
-		
-		// console.log('b4 locmod: ', this.loc);
+
 		//Make sure the modifier exists; else set the mod to empty string.
 		this.locMod = formatLocMod(this.loc);
 		
-		// console.log (this.loc, this.locAdr, this.locMod);
-		
 		//Invoke this routes callback to make sure the correct data is loaded.
-		this.routes[this.loc[0]].callback ();
-		this.header = document.getElementsByTagName ("header");
-		this.content = document.getElementsByTagName ("main");
-		
-		console.log (this);
+		this.callRoute();
 	}
 	
 	routes = {
