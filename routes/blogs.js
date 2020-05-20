@@ -43,7 +43,7 @@ router.get('/:id', (req, res, next) => {
 		}
 	});
 	
-	res.render('blog', data)
+	res.render('blog')
 })
 
 module.exports = router;
