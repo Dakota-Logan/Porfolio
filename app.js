@@ -21,7 +21,7 @@ app.use(cookieParser());
 app.use(sassMiddleware({
     src: path.join(__dirname, 'public'),
     dest: path.join(__dirname, 'public'),
-    indentedSyntax: true, // true = .sass and false = .scss
+    indentedSyntax: false, // true = .sass and false = .scss
     sourceMap: true
 }));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -38,6 +38,9 @@ app.use(function (req, res, next) {
 // error handler
 app.use(function (err, req, res, next) {
     // set locals, only providing error in development
+	
+	console.error(err);
+	
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
 

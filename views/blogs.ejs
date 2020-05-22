@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/stylesheets/global.scss" lang="scss">
+    <title>Blogs</title>
+</head>
+<body>
+
+<%- include("./partials/header") %>
+
+<section id="content">
+    <div id="blogs">
+        <ul class="blog-links">
+            <% data.forEach(cur => { %>
+            <%- include("./partials/blog_listing", {data: cur}); %>
+            <% }) %>
+        </ul>
+    </div>
+</section>
+
+<%- include("./partials/footer") %>
+
+</body>
+<script></script>
+
+</html>
